@@ -1160,9 +1160,12 @@ int main(int argc, char **argv)
 					}
 					else
 					{
-						Pagemanga.free();
-						selectpage = arraychapter.size();
-						Pagemanga.loadFromFile(arraychapter[selectpage]);
+						if (selectpage < arraychapter.size() - 1)
+						{
+							Pagemanga.free();
+							selectpage = arraychapter.size() - 1;
+							Pagemanga.loadFromFile(arraychapter[selectpage]);
+						}
 					}
 				}
 				break;
