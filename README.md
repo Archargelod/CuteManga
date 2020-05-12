@@ -1,5 +1,6 @@
 # MyManga
-(originally CuteManga by darkxex)
+(forked from "CuteManga by darkxex")
+
 manga and comic reader for Nintendo Switch.
 
 How to use
