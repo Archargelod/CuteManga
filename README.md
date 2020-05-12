@@ -13,4 +13,4 @@ Create a folder in the root SD memory named "CuteManga" and put your "Manga / Co
 
 
 ---------------------------
-"https://www.freepik.com/free-photos-vectors/baby" Baby dragon art created by freepik - www.freepik.com
+"https://www.freepik.com/free-photos-vectors/food" Food vector created by freepik - www.freepik.com
