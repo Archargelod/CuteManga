@@ -831,6 +831,31 @@ int main(int argc, char **argv)
 			}
 
 		}
+
+		if (kDown & KEY_DDOWN)
+		{
+			switch (statenow)
+			{
+			
+
+			case selectmanga:
+				if (selectchapter < arraymain.size() - 1)
+				{
+					selectchapter++;
+
+					std::cout << selectchapter << std::endl;
+					baseymain = baseymain - 20;
+				}
+				else {
+					selectchapter = 0;
+
+					baseymain = 30;
+				}
+				break;
+			}
+
+		}
+
 		if (kHeld & KEY_LSTICK_UP)
 		{
 			switch (statenow)
@@ -862,6 +887,7 @@ int main(int argc, char **argv)
 			}
 
 		}
+
 		if (kDown & KEY_LSTICK_UP)
 		{
 			switch (statenow)
@@ -881,6 +907,27 @@ int main(int argc, char **argv)
 			}
 
 		}
+
+		if (kDown & KEY_DUP)
+		{
+			switch (statenow)
+			{
+			case selectmanga:
+				if (selectchapter > 0)
+				{
+					selectchapter--;
+					std::cout << selectchapter << std::endl;
+					baseymain = baseymain + 20;
+				}
+				else {
+					baseymain = 30 - 20 * (arraymain.size() - 1);
+					selectchapter = arraymain.size() - 1;
+				}
+				break;
+			}
+
+		}
+
 		if (kHeld & KEY_LSTICK_LEFT)
 		{
 
