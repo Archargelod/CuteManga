@@ -27,7 +27,7 @@
 #include <cmath>
 #include <iostream>
 #include <math.h>  
-#include <Vector>
+#include <vector>
 #include <dirent.h>
 
 // Empty strings are invalid.
@@ -630,7 +630,7 @@ int main(int argc, char **argv)
 #ifdef __SWITCH__
 		gWindow = SDL_CreateWindow("sdl2_gles2", 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
 #else
-		gWindow = SDL_CreateWindow("CuteManga", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+		gWindow = SDL_CreateWindow("MyManga", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 #endif // SWITCH
 
 		
@@ -687,17 +687,17 @@ int main(int argc, char **argv)
 	Heart.loadFromFile("romfs:/heart.png");
 	Farest.loadFromFile("romfs:/texture.png");
 	//std::string foldercomic = "sdmc:/Kaguya Wants to be Confessed/";
-	std::string foldermain = "sdmc:/CuteManga/";
+	std::string foldermain = "sdmc:/MyManga/";
 #else
 	gFont = TTF_OpenFont("C:\\respaldo2017\\C++\\test\\Debug\\lazy.ttf", 16);
 	gFont2 = TTF_OpenFont("C:\\respaldo2017\\C++\\test\\Debug\\lazy2.ttf", 150);
 	gFontcapit = TTF_OpenFont("C:\\respaldo2017\\C++\\test\\Debug\\lazy2.ttf", 100);
 	gFont3 = TTF_OpenFont("C:\\respaldo2017\\C++\\test\\Debug\\lazy2.ttf", 40);
-	Heart.loadFromFile("C:/respaldo2017/C++/CuteManga/Debug/heart.png");
-	Farest.loadFromFile("C:/respaldo2017/C++/CuteManga/Debug/texture.png");
-	lupa.loadFromFile("C:/respaldo2017/C++/CuteManga/Debug/lupa.png");
-	//std::string foldercomic = "C:/respaldo2017/C++/CuteManga/Debug/Kaguya Wants to be Confessed/";
-	std::string foldermain = "C:/respaldo2017/C++/CuteManga/Debug/";
+	Heart.loadFromFile("C:/respaldo2017/C++/MyManga/Debug/heart.png");
+	Farest.loadFromFile("C:/respaldo2017/C++/MyManga/Debug/texture.png");
+	lupa.loadFromFile("C:/respaldo2017/C++/MyManga/Debug/lupa.png");
+	//std::string foldercomic = "C:/respaldo2017/C++/MyManga/Debug/Kaguya Wants to be Confessed/";
+	std::string foldermain = "C:/respaldo2017/C++/MyManga/Debug/";
 	
 #endif // SWITCH
 
@@ -976,6 +976,70 @@ int main(int argc, char **argv)
 			}
 		}
 
+		if (kDown & KEY_DLEFT)
+		{
+			switch (statenow)
+			{
+			case readmanga:
+			{
+
+				if (cascade == false)
+				{
+					basey = 0;
+					basex = 0;
+					zoom = 1;
+					if (selectpage > 0)
+					{
+						Pagemanga.free();
+						selectpage--;
+						Pagemanga.loadFromFile(arraychapter[selectpage]);
+
+					}
+					else
+					{
+						Pagemanga.free();
+						selectpage = 0;
+						Pagemanga.loadFromFile(arraychapter[selectpage]);
+					}
+				}
+			}
+
+			break;
+			}
+		}
+
+		if (kDown & KEY_DUP)
+		{
+			switch (statenow)
+			{
+			case readmanga:
+			{
+
+				if (cascade == false)
+				{
+					basey = 0;
+					basex = 0;
+					zoom = 1;
+					if (selectpage > 5)
+					{
+						Pagemanga.free();
+						selectpage = selectpage - 5;
+						Pagemanga.loadFromFile(arraychapter[selectpage]);
+
+					}
+					else
+					{
+						Pagemanga.free();
+						selectpage = 0;
+						Pagemanga.loadFromFile(arraychapter[selectpage]);
+					}
+				}
+			}
+
+			break;
+			}
+		}
+
 		if (kDown & KEY_R)
 		{
 			switch (statenow)
@@ -999,6 +1063,60 @@ int main(int argc, char **argv)
 				{
 
 					zoom = 1;
+				}
+				break;
+			}
+
+		}
+
+		if (kDown & KEY_DRIGHT)
+		{
+			switch (statenow)
+			{
+			case readmanga:
+
+				if (cascade == false)
+				{
+					basey = 0;
+					basex = 0;
+					zoom = 1;
+					if (selectpage < arraychapter.size() - 1)
+					{
+						Pagemanga.free();
+						selectpage++;
+						Pagemanga.loadFromFile(arraychapter[selectpage]);
+
+					}
+				}
+				break;
+			}
+
+		}
+
+		if (kDown & KEY_DDOWN)
+		{
+			switch (statenow)
+			{
+			case readmanga:
+
+				if (cascade == false)
+				{
+					basey = 0;
+					basex = 0;
+					zoom = 1;
+					if (selectpage < arraychapter.size() - 5)
+					{
+						Pagemanga.free();
+						selectpage = selectpage + 5;
+						Pagemanga.loadFromFile(arraychapter[selectpage]);
+
+					}
+					else
+					{
+						Pagemanga.free();
+						selectpage = arraychapter.size();
+						Pagemanga.loadFromFile(arraychapter[selectpage]);
+					}
 				}
 				break;
 			}
@@ -1094,7 +1212,7 @@ int main(int argc, char **argv)
 					}
 					std::cout << arraypage.size() << std::endl;
 					statenow = readmanga;
-					helppage = true;
+					helppage = false;
 
 					break;
 				}
@@ -1110,7 +1228,7 @@ int main(int argc, char **argv)
 			case readmanga:
 				if (cascadeactivated == true)
 				{
-					if (cascademode < 2)
+					if (cascademode < 1)
 
 					{
 						cascademode++;
@@ -1118,23 +1236,15 @@ int main(int argc, char **argv)
 					else { cascademode = 0; }
 
 
-					if (cascademode == 1)
+					if (cascademode == 0)
 					{
 						separation = false;
 						cascade = true;
 					}
-					if (cascademode == 2)
+					if (cascademode == 1)
 					{
 						cascade = true;
 						separation = true;
-					}
-					if (cascademode == 0)
-					{
-
-						cascade = false;
-						separation = false;
-						basex = 0;
-						basey = 0;
 					}
 					std::cout << cascademode << std::endl;
 				}
@@ -1173,7 +1283,10 @@ int main(int argc, char **argv)
 				{
 					arraypage[x].free();
 				}
-				cascade = false;
+				if (cascadeactivated == true)
+				
+				{ cascade = true; }
+				else { cascade = false;  }
 				separation = false;
 				adjust = true;
 				basex = 0;
@@ -1338,7 +1451,7 @@ int main(int argc, char **argv)
 							}}
 							std::cout << arraypage.size() << std::endl;
 							statenow = readmanga;
-							helppage = true;
+							helppage = false;
 							break;
 						}
 					}
@@ -1688,7 +1801,6 @@ int main(int argc, char **argv)
 				}
 			}
 
-
 			if (zoom == 2) {
 				lupa.render(SCREEN_WIDTH - lupa.getWidth() - 10, SCREEN_HEIGHT - lupa.getHeight() - 10);
 			}
@@ -1703,22 +1815,24 @@ int main(int argc, char **argv)
 				SDL_RenderFillRect(gRenderer, &fillRect);
 				if (cascadeactivated == true)
 				{
-					gTextTexture.loadFromRenderedText(gFont, "Press \"X\" for Cascade Mode (Separation or not).", { 0, 0, 0 });
-					gTextTexture.render(SCREEN_WIDTH / 2 - gTextTexture.getWidth() / 2 + 350, (SCREEN_HEIGHT / 2 - gTextTexture.getHeight() / 2) + 150);
+					gTextTexture.loadFromRenderedText(gFont, "\"X\" - enable/disable gap.", { 0, 0, 0 });
+					gTextTexture.render(SCREEN_WIDTH / 2 - gTextTexture.getWidth() / 2 + 350, 30 + (SCREEN_HEIGHT / 2 - gTextTexture.getHeight() / 2) + 150);
 				}
 				else
 				{
 					gTextTexture.loadFromRenderedText(gFont, "Cascade is disabled, enable it in the Main Menu.", { 0, 0, 0 });
-					gTextTexture.render(SCREEN_WIDTH / 2 - gTextTexture.getWidth() / 2 + 350, (SCREEN_HEIGHT / 2 - gTextTexture.getHeight() / 2) + 150);
+					gTextTexture.render(SCREEN_WIDTH / 2 - gTextTexture.getWidth() / 2 + 350, 30 + (SCREEN_HEIGHT / 2 - gTextTexture.getHeight() / 2) + 150);
 				}
-				gTextTexture.loadFromRenderedText(gFont, "Press \"A\" for Fit Mode (On/Off).", { 0, 0, 0 });
-				gTextTexture.render(SCREEN_WIDTH / 2 - gTextTexture.getWidth() / 2 + 350, 30 + (SCREEN_HEIGHT / 2 - gTextTexture.getHeight() / 2) +150);
-				gTextTexture.loadFromRenderedText(gFont, "Press \"L\" for Previous page and \"R\" for Next page.", { 0, 0, 0 });
+				gTextTexture.loadFromRenderedText(gFont, "Press \"Left Stick\" to hide this.", { 0, 0, 0 });
+				gTextTexture.render(SCREEN_WIDTH / 2 - gTextTexture.getWidth() / 2 + 350, (SCREEN_HEIGHT / 2 - gTextTexture.getHeight() / 2) +150);
+				gTextTexture.loadFromRenderedText(gFont, "\"A\" - Fit Mode (On/Off).", { 0, 0, 0 });
 				gTextTexture.render(SCREEN_WIDTH / 2 - gTextTexture.getWidth() / 2 + 350, 60 + (SCREEN_HEIGHT / 2 - gTextTexture.getHeight() / 2) +150);
-				gTextTexture.loadFromRenderedText(gFont, "Press \"ZL, ZR and R3\" for Zoom Mode.", { 0, 0, 0 });
+				gTextTexture.loadFromRenderedText(gFont, "\"L\"/\"DpadLeft\" - Back (\"DpadUP\" - back 5)", { 0, 0, 0 });
 				gTextTexture.render(SCREEN_WIDTH / 2 - gTextTexture.getWidth() / 2 + 350, 90 + (SCREEN_HEIGHT / 2 - gTextTexture.getHeight() / 2) +150);
-				gTextTexture.loadFromRenderedText(gFont, "Press \"L3\" for show/hide this.", { 0, 0, 0 });
+				gTextTexture.loadFromRenderedText(gFont, "\"R\"/\"DpadRight\" - Forward (\"DpadDown\" - forward 5)", { 0, 0, 0 });
 				gTextTexture.render(SCREEN_WIDTH / 2 - gTextTexture.getWidth() / 2 + 350, 120 + (SCREEN_HEIGHT / 2 - gTextTexture.getHeight() / 2) +150);
+				gTextTexture.loadFromRenderedText(gFont, "\"ZL, ZR and R3\" - Zoom Modes.", { 0, 0, 0 });
+				gTextTexture.render(SCREEN_WIDTH / 2 - gTextTexture.getWidth() / 2 + 350, 150 + (SCREEN_HEIGHT / 2 - gTextTexture.getHeight() / 2) +150);
 			}
 		
 		break;
@@ -1731,7 +1845,7 @@ int main(int argc, char **argv)
 			
 			if (existfoldermain == false)
 			{
-				gTextTexture.loadFromRenderedText(gFont3, "Please create the folder called \"CuteManga\" in", { 0, 0, 0 });
+				gTextTexture.loadFromRenderedText(gFont3, "Please create the folder called \"MyManga\" in", { 0, 0, 0 });
 				gTextTexture.render(SCREEN_WIDTH / 2 - gTextTexture.getWidth() / 2, 100);
 				gTextTexture.loadFromRenderedText(gFont3, "your SD and put your \"Comic / Manga / Webtoon\" inside", { 0, 0, 0 });
 				gTextTexture.render(SCREEN_WIDTH / 2 - gTextTexture.getWidth() / 2, 130);
@@ -1778,18 +1892,46 @@ int main(int argc, char **argv)
 			textColor = { 50, 50, 50 };
 			if (cascadeactivated == false)
 			{
-				gTextTexture.loadFromRenderedText(gFont, "\"A\" to read folder - \"X\" for Enable Cascade Mode (Load slow and High Memory use). ", textColor);
+				gTextTexture.loadFromRenderedText(gFont, "\"A\" - read folder  \"X\" - Enable Cascade Mode (Slow loading and High Memory use).     \"LeftStick\" - show help", textColor);
 				gTextTexture.render(basexmain, SCREEN_HEIGHT - 30);
 			}
 			else
 			{
-				gTextTexture.loadFromRenderedText(gFont, "\"A\" to read folder - \"X\" for Disable Cascade Mode (Instant load and Low Memory use). ", textColor);
+				gTextTexture.loadFromRenderedText(gFont, "\"A\" - read folder  \"X\" - Disable Cascade Mode (Fast loading and Low Memory use).     \"LeftStick\" - show help", textColor);
 				gTextTexture.render(basexmain, SCREEN_HEIGHT - 30);
 			}
 
 
 		
-
+			if (helppage == true)
+			{
+				SDL_Rect fillRect2 = { SCREEN_WIDTH / 2 + 110, SCREEN_HEIGHT / 2 +130  , 502, 202 };
+				SDL_SetRenderDrawColor(gRenderer, 0, 0, 0, 0);
+				SDL_RenderFillRect(gRenderer, &fillRect2);
+				SDL_Rect fillRect = { SCREEN_WIDTH / 2 +100, SCREEN_HEIGHT / 2 +120  , 500, 200 };
+				SDL_SetRenderDrawColor(gRenderer, 255, 255, 255, 255);
+				SDL_RenderFillRect(gRenderer, &fillRect);
+				if (cascadeactivated == true)
+				{
+					gTextTexture.loadFromRenderedText(gFont, "\"X\" - enable/disable gap.", { 0, 0, 0 });
+					gTextTexture.render(SCREEN_WIDTH / 2 - gTextTexture.getWidth() / 2 + 350, 30 + (SCREEN_HEIGHT / 2 - gTextTexture.getHeight() / 2) + 150);
+				}
+				else
+				{
+					gTextTexture.loadFromRenderedText(gFont, "Cascade Mode is disabled.", { 0, 0, 0 });
+					gTextTexture.render(SCREEN_WIDTH / 2 - gTextTexture.getWidth() / 2 + 350, 30 + (SCREEN_HEIGHT / 2 - gTextTexture.getHeight() / 2) + 150);
+				}
+				gTextTexture.loadFromRenderedText(gFont, "Press \"LeftStick\" to hide this.", { 0, 0, 0 });
+				gTextTexture.render(SCREEN_WIDTH / 2 - gTextTexture.getWidth() / 2 + 350, (SCREEN_HEIGHT / 2 - gTextTexture.getHeight() / 2) +150);
+				gTextTexture.loadFromRenderedText(gFont, "\"A\" - Fit Mode (On/Off).", { 0, 0, 0 });
+				gTextTexture.render(SCREEN_WIDTH / 2 - gTextTexture.getWidth() / 2 + 350, 60 + (SCREEN_HEIGHT / 2 - gTextTexture.getHeight() / 2) +150);
+				gTextTexture.loadFromRenderedText(gFont, "\"L\"/\"DpadLeft\" - Back (\"DpadUP\" - back 5)", { 0, 0, 0 });
+				gTextTexture.render(SCREEN_WIDTH / 2 - gTextTexture.getWidth() / 2 + 350, 90 + (SCREEN_HEIGHT / 2 - gTextTexture.getHeight() / 2) +150);
+				gTextTexture.loadFromRenderedText(gFont, "\"R\"/\"DpadRight\" - Forward (\"DpadDown\" - forward 5)", { 0, 0, 0 });
+				gTextTexture.render(SCREEN_WIDTH / 2 - gTextTexture.getWidth() / 2 + 350, 120 + (SCREEN_HEIGHT / 2 - gTextTexture.getHeight() / 2) +150);
+				gTextTexture.loadFromRenderedText(gFont, "\"ZL, ZR and R3\" - Zoom Modes.", { 0, 0, 0 });
+				gTextTexture.render(SCREEN_WIDTH / 2 - gTextTexture.getWidth() / 2 + 350, 150 + (SCREEN_HEIGHT / 2 - gTextTexture.getHeight() / 2) +150);
+			}
 			break;
 		
 
