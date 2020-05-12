@@ -34,8 +34,8 @@ VERSION_MAJOR := 1
 VERSION_MINOR := 0
 VERSION_MICRO := 1
 
-APP_TITLE	:=	CuteManga
-APP_AUTHOR	:=	AngelXex
+APP_TITLE	:=	MyManga
+APP_AUTHOR	:=	AngelXex (improved by Archargelod)
 APP_VERSION	:=	${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MICRO}
 
 TARGET		:=	$(subst $e ,_,$(notdir $(APP_TITLE)))
