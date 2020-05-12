@@ -832,6 +832,56 @@ int main(int argc, char **argv)
 
 		}
 
+		if (kHeld & KEY_RSTICK_DOWN)
+		{
+			switch (statenow)
+			{
+			case readmanga:
+
+				if (cascade == false) {
+
+					if ((basey) > (SCREEN_HEIGHT - heightnew))
+					{
+						basey -= speed;
+						if (basey <= SCREEN_HEIGHT - heightnew)
+						{
+							basey = SCREEN_HEIGHT - heightnew;
+						}
+					}
+				}
+				else
+				{
+					basey -= speed;
+				}
+				break;
+
+			}
+
+		}
+		if (kDown & KEY_RSTICK_DOWN)
+		{
+			switch (statenow)
+			{
+			
+
+			case selectmanga:
+				if (selectchapter < arraymain.size() - 1)
+				{
+					selectchapter++;
+
+					std::cout << selectchapter << std::endl;
+					baseymain = baseymain - 20;
+				}
+				else {
+					selectchapter = 0;
+
+					baseymain = 30;
+				}
+				break;
+			}
+
+		}
+
 		if (kDown & KEY_DDOWN)
 		{
 			switch (statenow)
@@ -908,6 +958,58 @@ int main(int argc, char **argv)
 
 		}
 
+		if (kHeld & KEY_RSTICK_UP)
+		{
+			switch (statenow)
+			{
+			case readmanga:
+
+				if (cascade == false) {
+					if (basey <= 0)
+					{
+						basey += speed;
+						if (basey > 0)
+						{
+							basey = 0;
+						}
+					}
+				}
+				else
+				{
+					if (basey <= 0)
+					{
+						basey += speed;
+						if (basey > 0)
+						{
+							basey = 0;
+						}
+					}
+				}
+				break;
+			}
+
+		}
+
+		if (kDown & KEY_RSTICK_UP)
+		{
+			switch (statenow)
+			{
+			case selectmanga:
+				if (selectchapter > 0)
+				{
+					selectchapter--;
+					std::cout << selectchapter << std::endl;
+					baseymain = baseymain + 20;
+				}
+				else {
+					baseymain = 30 - 20 * (arraymain.size() - 1);
+					selectchapter = arraymain.size() - 1;
+				}
+				break;
+			}
+
+		}
+
 		if (kDown & KEY_DUP)
 		{
 			switch (statenow)
@@ -948,7 +1050,42 @@ int main(int argc, char **argv)
 
 		}
 
+		if (kHeld & KEY_RSTICK_LEFT)
+		{
+
+			switch (statenow)
+			{
+			case readmanga:
+
+			{
+				if (zoom == 2)
+				{
+					basex += speed;
+				}
+			}
+			break;
+			}
+
+
+
+		}
+
 		if (kHeld & KEY_LSTICK_RIGHT)
+		{
+			switch (statenow)
+			{
+			case readmanga:
+				if (zoom == 2)
+				{
+					basex -= speed;
+				}
+				break;
+			}
+
+
+		}
+
+		if (kHeld & KEY_RSTICK_RIGHT)
 		{
 			switch (statenow)
 			{
